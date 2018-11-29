@@ -1,0 +1,54 @@
+html, body {
+  height: 100%; }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; }
+
+body {
+  background-color: pink; }
+
+.head {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+  .head .logo {
+    font-size: 26px;
+    text-decoration: none; }
+  .head .right {
+    display: flex;
+    align-items: center; }
+    .head .right p {
+      margin-right: 10px; }
+      .head .right p #manager {
+        display: none; }
+    .head .right button {
+      width: 50px;
+      height: 36px;
+      border: none;
+      text-align: center;
+      line-height: 36px;
+      padding: 0 0; }
+
+.body {
+  flex: 1;
+  display: flex;
+  background-color: #fff; }
+  .body .menu {
+    width: 200px;
+    border-right: 1px solid forestgreen; }
+    .body .menu li {
+      height: 50px;
+      border-bottom: 1px solid rosybrown;
+      padding-left: 20px;
+      line-height: 50px; }
+      .body .menu li a {
+        text-decoration: none;
+        font-size: 20px; }
+  .body .content {
+    flex: 1; }
+
+.foot {
+  height: 50px; }

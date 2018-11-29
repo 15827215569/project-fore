@@ -1,0 +1,30 @@
+.content{
+    padding: 10px;
+    table{
+        tbody{
+            .handle{
+                cursor: pointer;
+                color: blue;
+            }
+        }
+    }
+   nav{
+       ul{
+           display: inline-block;
+           float: right;
+           li{
+               cursor: pointer;
+               height: 36px;
+               width: 36px;
+               display: inline-block;
+               border: 1px solid #ccc;
+               text-align: center;
+               line-height: 36px;
+           }
+           .active{
+               background-color: blue;
+               color: #fff;
+           }
+       }
+   }
+}
