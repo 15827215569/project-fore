@@ -48,7 +48,14 @@ body {
         text-decoration: none;
         font-size: 20px; }
   .body .content {
-    flex: 1; }
+    flex: 1;
+    text-align: center; }
+    .body .content p {
+      font-size: 40px;
+      text-align: center;
+      height: 80px;
+      line-height: 80px;
+      font-weight: 600; }
 
 .foot {
   height: 50px; }

@@ -1,52 +1,98 @@
+//判断是否登录，显示用户名，设置点击退出程序
+if (!localStorage.getItem('nikename')) {
+    location.href = 'login.html'
+}
+$('#username').text(localStorage.getItem('nikename'));
+$('#exit').click(function () {
+    localStorage.clear();
+    location.href = 'login.html'
+})
+
+
+
+//获取是不是管理员
+if (localStorage.getItem('nikename')) {
+    $.post('http://127.0.0.1:3000/api/isAdmin', {
+        nikename: localStorage.getItem('nikename')
+    }, function (res) {
+        if (res.code === 0) {
+            if (res.data.isAdmin) {
+                $('#manager').css({ display: 'inline' })
+            } else {
+                $('#usersCon').css({ display: 'none' })
+            }
+        }
+    })
+}
+//添加品牌页面显示和隐藏
+$('#addphone').click(function () {
+    $('#addphone-box').css({ display: 'block' })
+});
+$('#noadd').click(function () {
+    $('#addphone-box').css({ display: 'none' })
+})
+
+//添加手机
+$('#isadd').click(function () {
+    $.post('http://127.0.0.1:3000/api/addbrand', {
+        name: $('#name').val(),
+    }, function (res) {
+        if (res.code === 0) {
+            $('#addphone-box').css({ display: 'none' })
+            getPhone();
+        } else {
+            alert('插入失败')
+        }
+    })
+})
+
+//获取手机信息
+
 $(function () {
-    getList();
+    getBrand();
 });
 var currentPage = 1
-//获取用户信息
-function getList(page, pageSize, searchCon) {
+
+function getBrand(page, pageSize) {
     //设置延时器，点击切换页面；
     setTimeout(function () {
         for (var i = 1; i < $('#pagination li').length - 1; i++) {
             (function (j) {
                 $('#pagination li').eq(j).click(function () {
-                    getList(j);
+                    getBrand(j);
                     currentPage = j
                 })
             }(i))
 
         }
         $('#pagination li').eq(0).click(function () {
-            getList(currentPage - 1 <= 0 ? 1 : currentPage - 1)
+            getBrand(currentPage - 1 <= 0 ? 1 : currentPage - 1)
         });
         $('#pagination li').eq($('#pagination li').length - 1).click(function () {
-            getList(currentPage + 1 >= $('#pagination li').length - 2 ? $('#pagination li').length - 2 : currentPage + 1)
+            getBrand(currentPage + 1 >= $('#pagination li').length - 2 ? $('#pagination li').length - 2 : currentPage + 1)
         });
     }, 500);
     //获取内容
     page = page || 1
     pageSize = pageSize || 5;
-    searchCon = searchCon || '';
     currentPage = page
-    $.get('http://127.0.0.1:3000/api/user/list', {
+    $.get('http://127.0.0.1:3000/api/getbrand', {
         page: page,
         pageSize: pageSize,
-        searchCon: searchCon
     }, function (res) {
         if (res.code === 0) {
             //获取内容
             var list = res.data.list;
             var con = ''
             console.log(list)
+            console.log('haha')
             for (var i = 0; i < list.length; i++) {
                 con += `
                 <tr>
                 <th >${5 * (currentPage - 1) + i + 1}</th>
+                <th>tupian</th>
                 <th class='namecontent'>${list[i].name}</th>
-                <th>${list[i].nikename}</th>
-                <th>${list[i].age}</th>
-                <th>${list[i].sex}</th>
-                <th class="isAdmin">${list[i].isAdmin === true ? '是' : '否'}</th>
-                <th class='handle'><span class='deleteOne'>删除</span></th>
+                <th class='handle'><span class='delete'>删除</span></th>
             </tr>
                 `
             }
@@ -72,13 +118,6 @@ function getList(page, pageSize, searchCon) {
             $('#list-tab').html(listStr);
             $('#pagination').children().eq(page).addClass('active');
 
-            //实现是管理员的话不能被删除
-
-            $('.isAdmin').each(function () {
-                if ($(this).html() == '是') {
-                    $(this).siblings(".handle").html('')
-                }
-            })
         } else {
             alert(res.msg)
         }
@@ -86,21 +125,17 @@ function getList(page, pageSize, searchCon) {
 
 }
 
-
 //点击删除某一条数据
-
 $('#tbody').delegate($('.handle'), 'click', function (event) {
     var target = $(event.target);
-    console.log(target.siblings("[class='namecontent']").html())
-    if (target.attr('class') == 'deleteOne') {
-        $.post('http://127.0.0.1:3000/api/user/delete', {
+    if (target.attr('class') == 'delete') {
+        $.post('http://127.0.0.1:3000/api/brand/delete', {
             name: target.parent().siblings("[class='namecontent']").html()
         }, function (res) {
             if (res.code === -1) {
                 alert('删除失败')
             } else {
-
-                getList(currentPage);
+                getBrand(currentPage);
             }
 
         })
@@ -109,32 +144,3 @@ $('#tbody').delegate($('.handle'), 'click', function (event) {
 })
 
 
-
-//判断是否登录，显示用户名，设置点击退出程序
-if (!localStorage.getItem('nikename')) {
-    location.href = 'login.html'
-}
-$('#username').text(localStorage.getItem('nikename'));
-$('#exit').click(function () {
-    localStorage.clear();
-    location.href = 'login.html'
-})
-
-//获取是不是管理员
-$.post('http://127.0.0.1:3000/api/isAdmin', {
-    nikename: localStorage.getItem('nikename')
-}, function (res) {
-    if (res.code === 0) {
-        if (res.data.isAdmin) {
-            $('#manager').css({ display: 'inline' })
-        }
-    }
-})
-
-
-
-//模糊搜索
-$('#searchBtn').click(function () {
-    var searchCon = $('#searchValue').val();
-    getList(1, 5, searchCon);
-})

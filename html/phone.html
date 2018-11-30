@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/public.css">
+    <link rel="stylesheet" href="../css/phone.css">
 </head>
 
 <body>
@@ -16,20 +17,64 @@
         <div class="head">
             <div class="left"><a href="../index.html" class="logo">xx后台管理系统</a></div>
             <div class="right">
-                <p>欢迎你 - xxx(管理员)</p>
-                <button type="button" class="btn btn-primary btn-lg active">退出</button>
+                <p>欢迎你 - <span id="username"></span><span id="manager">(管理员)</span></p>
+                <button type="button" class="btn btn-primary btn-lg active" id="exit">退出</button>
             </div>
         </div>
         <div class="body">
+            <div class="update" id="update">
+                <p>修改</p>
+                <p>官方指导价: <input type="text" placeholder="请输入官方指导价" id="relpriceup"> </p>
+                <p>二手回收价: <input type="text" placeholder="请输入二手回收价" id="lowpriceup"> </p>
+                <p><button id="isupdate">确认</button><button id="noupdate">取消</button></p>
+            </div>
+            <form class="addphone-box" id="addphone-box">
+                <p>新增</p>
+                <p>名称: <input type="text" placeholder="请输入手机名称" id="name"> </p>
+                <p>品牌：<select id="brand">
+                        <option value="苹果" selected>苹果</option>
+                        <option value="小米">小米</option>
+                        <option value="三星">三星</option>
+                        <option value="华为">华为</option>
+                        <option value="魅族">魅族</option>
+                        <option value="OPPO">OPPO</option>
+                        <option value="vivo">VIVO</option>
+                    </select></p>
+                <p>官方指导价: <input type="text" placeholder="请输入官方指导价" id="relprice"> </p>
+                <p>二手回收价: <input type="text" placeholder="请输入二手回收价" id="lowprice"> </p>
+                <p>图片：<input type="file" style="display:inline-block"> </p>
+                <p><button id="isadd">确认</button><button id="noadd">取消</button></p>
+            </form>
+
             <div class="menu">
                 <ul>
-                    <li><a href="users.html">用户管理</a></li>
+                    <li id="usersCon"><a href="users.html">用户管理</a></li>
                     <li><a href="brand.html">品牌管理</a></li>
-                    <li><a href="#">手机管理</a> </li>
+                    <li style="background:#ccc"><a href="#">手机管理</a> </li>
                 </ul>
             </div>
             <div class="content">
-                这是手机
+                <div class="add">
+                    <button class="addphone" id="addphone">新增手机</button>
+                </div>
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>图片</th>
+                            <th>手机名称</th>
+                            <th>所属品牌</th>
+                            <th>官方指导价</th>
+                            <th>二手回收价</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+
+                    </tbody>
+                </table>
+                <nav id="list-tab">
+                </nav>
             </div>
         </div>
         <div class="foot">
@@ -39,3 +84,5 @@
 </body>
 
 </html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="../js/phone.js"></script>
