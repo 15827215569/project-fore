@@ -39,7 +39,7 @@ $('#isadd').click(function () {
     }, function (res) {
         if (res.code === 0) {
             $('#addphone-box').css({ display: 'none' })
-            getPhone();
+            getBrand();
         } else {
             alert('插入失败')
         }
@@ -90,7 +90,7 @@ function getBrand(page, pageSize) {
                 con += `
                 <tr>
                 <th >${5 * (currentPage - 1) + i + 1}</th>
-                <th>tupian</th>
+                <th>这是LOGO</th>
                 <th class='namecontent'>${list[i].name}</th>
                 <th class='handle'><span class='delete'>删除</span></th>
             </tr>

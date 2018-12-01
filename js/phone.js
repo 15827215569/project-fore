@@ -38,11 +38,13 @@ $('#noadd').click(function () {
 
 //添加手机
 $('#isadd').click(function () {
+    console.log($('#uploadImg').file)
     $.post('http://127.0.0.1:3000/api/addphone', {
         name: $('#name').val(),
         brand: $('#brand').val(),
         relprice: $('#relprice').val(),
-        lowprice: $('#lowprice').val()
+        lowprice: $('#lowprice').val(),
+        image: $('#uploadImg').file,
     }, function (res) {
         if (res.code === 0) {
             $('#addphone-box').css({ display: 'none' })
@@ -98,7 +100,7 @@ function getPhone(page, pageSize) {
                 con += `
                 <tr>
                 <th >${5 * (currentPage - 1) + i + 1}</th>
-                <th>tupian</th>
+                <th><img src='${list[i].image}'></th>
                 <th class='namecontent'>${list[i].name}</th>
                 <th class='brandcontent'>${list[i].brand}</th>
                 <th>${list[i].relprice}</th>
@@ -160,6 +162,8 @@ $('#tbody').delegate($('.handle'), 'click', function (event) {
     var target = $(event.target);
     if (target.attr('class') == 'revise') {
         $('#update').css({ display: 'block' });
+        $('#nameup').html('手机名称:  ' + target.parent().siblings("[class='namecontent']").html());
+        $('#brandup').html('手机品牌:  ' + target.parent().siblings("[class='brandcontent']").html());
         $('#noupdate').click(function () {
             $('#update').css({ display: 'none' })
         })

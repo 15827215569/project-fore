@@ -24,11 +24,13 @@
         <div class="body">
             <div class="update" id="update">
                 <p>修改</p>
+                <p id="nameup">1</p>
+                <p id="brandup">2</p>
                 <p>官方指导价: <input type="text" placeholder="请输入官方指导价" id="relpriceup"> </p>
                 <p>二手回收价: <input type="text" placeholder="请输入二手回收价" id="lowpriceup"> </p>
                 <p><button id="isupdate">确认</button><button id="noupdate">取消</button></p>
             </div>
-            <form class="addphone-box" id="addphone-box">
+            <div class="addphone-box" id="addphone-box">
                 <p>新增</p>
                 <p>名称: <input type="text" placeholder="请输入手机名称" id="name"> </p>
                 <p>品牌：<select id="brand">
@@ -42,9 +44,9 @@
                     </select></p>
                 <p>官方指导价: <input type="text" placeholder="请输入官方指导价" id="relprice"> </p>
                 <p>二手回收价: <input type="text" placeholder="请输入二手回收价" id="lowprice"> </p>
-                <p>图片：<input type="file" style="display:inline-block"> </p>
+                <p>图片：<input type="file" style="display:inline-block" id='uploadImg'> </p>
                 <p><button id="isadd">确认</button><button id="noadd">取消</button></p>
-            </form>
+            </div>
 
             <div class="menu">
                 <ul>
